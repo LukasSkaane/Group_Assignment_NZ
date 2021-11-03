@@ -140,6 +140,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Group assignment NZ School System.cpp" />
+    <ClCompile Include="Login.cpp" />
+    <ClCompile Include="Registration.cpp" />
+    <ClCompile Include="Introduction.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Introduction.h" />
+    <ClInclude Include="Login.h" />
+    <ClInclude Include="Registration.h" />
+    <ClInclude Include="Structures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
