@@ -1,15 +1,16 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#ifndef STRUCTURES_H
+#define STRUCTURES_H
 #include <vector>
 
 using namespace std;
 
 struct Person {
-	string 
+	string
 		firstName,
 		middleName,
 		lastName,
 		gender,
+		birthDate,
 		emailAddress,
 		contactNumber,
 		username,
@@ -40,4 +41,4 @@ struct Admin {
 	Person personalDetails;
 };
 
-#endif // !STRUCTS_H
+#endif // !STRUCTURES_H

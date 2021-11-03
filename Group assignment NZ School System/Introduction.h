@@ -1,10 +1,10 @@
-#ifndef INTRO_H
-#define INTRO_H
+#ifndef INTRODUCTION_H
+#define INTRODUCTION_H
 /// vvv  Add introduction.cpp declarations  vvv 
 // Should most likely only be one.
 
 void introduction(); 
 
-#endif // !INTRO_H
+#endif // !INTRODUCTION_H
 
 

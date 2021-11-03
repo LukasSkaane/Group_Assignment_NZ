@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Group assignment NZ School System.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="Introduction.cpp" />
