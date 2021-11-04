@@ -143,8 +143,10 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="Introduction.cpp" />
+    <ClCompile Include="StorageHandling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="StorageHandling.h" />
     <ClInclude Include="Introduction.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="Registration.h" />

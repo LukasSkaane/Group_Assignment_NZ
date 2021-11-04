@@ -7,7 +7,7 @@
 
 int main()
 {
-	introduction();
 	registration();
-
+	
 }
+

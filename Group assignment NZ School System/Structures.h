@@ -18,7 +18,7 @@ struct Person {
 }; 
 
 struct Student {
-	int studentId;
+	int studentId = 0;
 	vector<string> classesList; // Use push_front() to add to classes list.
 	Person personalDetails;
 	Person caregiverPrimary;
@@ -26,12 +26,12 @@ struct Student {
 };
 
 struct Parent {
-	vector<Student> children; // Parent children attending school.
+	vector<Student> children; // Parents children attending school.
 	Person personalDetails;
 };
 
 struct Teacher {
-	int classNumber;
+	int classNumber = 0;
 	string yearTaught;
 	Person personalDetails;
 };
