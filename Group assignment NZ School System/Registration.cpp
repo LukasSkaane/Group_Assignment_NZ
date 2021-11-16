@@ -2,28 +2,35 @@
 #include <string>
 #include <iomanip>
 #include <array>
+#include <algorithm>
+
 #include "Registration.h"
 #include "Structures.h"
+#include "StorageHandling.h"
 
 using namespace std;
 
 const array<char, 3> invalidPasswordChars = { '\\', '\'', '\"'}; 
-// Disallowing back-slash (\), single-quote ('), double-quote (") because I believe incorrect handling would result in untraceable exception. (I'd rather not try to debug that)
+// Disallowing back-slash (\), single-quote ('), double-quote (") because I believe incorrect handling would result in an untraceable exception. (I'd rather not try to debug that)
+vector<string> usernames;
 
-void createPersonalDetails(Person&);
+template<class T>
+void createPersonalDetails(T&);
 void createStudent(Student&);
 void createParent(Parent&);
 void createTeacher(Teacher&);
-void createAdmin();
+void createAdmin(); // Incomplete
 
-vector<string> addLessons();
+vector<char[]> addLessons(); 
+// As of now does not work, I am unsure how to save a 
+// list of student classes so will wait before adding this functionality.
 
 void registration() 
 {
 	char input;
-	vector<string> usernameList;
-	// usernameList = getUsernames();
-	
+	getUsernames(usernames);
+
+
 	cout << "Welcome to registration system.\n"
 		<< "Please choose an option:\n"
 		<< "1. Register Student\n"
@@ -31,27 +38,27 @@ void registration()
 		<< "3. Register Teacher\n";	
 	cin >> input;
 
-	Student student;
 	switch (input)
 	{
 	case '1':
 	{
+		Student student;
 		createStudent(student);
-		// saveStudent(student);
+		saveToFile(student);
 		break;
 	}
 	case '2': 
 	{
 		Parent parent;
 		createParent(parent);
-		// saveParent(parent);
+		saveToFile(parent);
 		break;
 	}
 	case '3': 
 	{
 		Teacher teacher;
 		createTeacher(teacher);
-		// saveTeacher(teacher);
+		saveToFile(teacher);
 		break;
 	}
 	default:
@@ -64,34 +71,34 @@ int setStudentId();
 void createStudent(Student& student) 
 {
 	cout << "Set personal details for student." << endl;
-	createPersonalDetails(student.personalDetails);
+	createPersonalDetails(student);
 	student.studentId = setStudentId();
-	student.classesList = addLessons();
+	//student.classesList = addLessons();
 	// setCaregiver(student.caregiverPrimary);
 	// Ask to set secondary caregiver setCaregiver(student.caregiverSecondary);
 }
-vector<string> addLessons() 
-{
-	vector<string> lessonList;
-	auto createLesson = []() {
-		string lesson;
-		cout << "Please input the classes name:\n";
-		getline(cin, lesson);
-		return lesson;
-	};
-
-	cout << "Add classes to students curriculum." << endl;
-	char input;
-	do
-	{
-		lessonList.push_back(createLesson());
-		cout << "Do you want to add another lesson? y/n" << endl;
-		cin >> input;
-		cin.ignore();
-	} while (input == 'y' || input == 'Y');
-
-	return lessonList;
-}
+//vector<char[]> addLessons() 
+//{
+//	vector<char[]> lessonList;
+//	auto createLesson = []() {
+//		char lesson[20];
+//		cout << "Please input the classes name, max lenght 20 characters and cannot have spaces. \n";
+//		cin >> lesson;
+//		return lesson;
+//	};
+//
+//	cout << "Add classes to students curriculum." << endl;
+//	char input;
+//	do
+//	{
+//		lessonList.push_back(createLesson());
+//		cout << "Do you want to add another lesson? y/n" << endl;
+//		cin >> input;
+//		cin.ignore();
+//	} while (input == 'y' || input == 'Y');
+//
+//	return lessonList;
+//}
 int setStudentId() {
 	int tempId;
 	bool invalidId = false;
@@ -110,61 +117,68 @@ int setStudentId() {
 void createParent(Parent& parent)
 {
 	cout << "Set personal details for parent." << endl;
-	createPersonalDetails(parent.personalDetails);
+	createPersonalDetails(parent);
 }
 
 
 void createTeacher(Teacher& teacher)
 {
 	cout << "Set personal details for teacher." << endl;
-	createPersonalDetails(teacher.personalDetails);
+	createPersonalDetails(teacher);
 
 }
 
 bool isPasswordValid(string);
-void createPersonalDetails(Person& p)
+bool isUsernameValid(string);
+template <class T>
+void createPersonalDetails(T& p)
 {
 	cout << "First name: ";
-	cin >> p.firstName;
+	cin >> p.personalDetails.firstName;
 
 	cout << "Middle name: ";
-	cin >> p.middleName;
+	cin >> p.personalDetails.middleName;
 
 	cout << "Last name: ";
-	cin >> p.lastName;
+	cin >> p.personalDetails.lastName;
 
 	cout << "Gender: ";
-	cin >> p.gender;
+	cin >> p.personalDetails.gender;
 
 	cout << "Birth date in format mm/dd/yyyy: ";
-	cin >> p.birthDate;
+	cin >> p.personalDetails.birthDate;
 
 	cout << "Email address: ";
-	cin >> p.emailAddress;
+	cin >> p.personalDetails.emailAddress;
 
 	cout << "Contact number: ";
-	cin >> p.contactNumber;
+	cin >> p.personalDetails.contactNumber;
 
-	bool invalidUsername = false; // Only one of each username may exist.
+	bool invalidUsername = false;
 	do
 	{
-		string tempUsername;
+		char tempUsername[51];
 		cout << "Username: ";
 		cin >> tempUsername;
-		// Check username validity
-		p.username = tempUsername;
-
+		if (isUsernameValid(tempUsername)) {
+			strcpy_s(p.personalDetails.username, tempUsername);
+			invalidUsername = false;
+		}
+		else {
+			invalidUsername = true;
+			cout << "Invalid username." << endl;
+		}
 	} while (invalidUsername);
 
 	bool invalidPassword = false;
 	do
 	{
-		string tempPassword;
+		char tempPassword[51];
 		cout << "Password: ";
 		cin >> tempPassword;
 		if (isPasswordValid(tempPassword))
 		{
-			p.password = tempPassword;
+			strcpy_s(p.personalDetails.password, tempPassword);
 			invalidPassword = false;
 		}
 		else 
@@ -177,6 +191,7 @@ void createPersonalDetails(Person& p)
 	cin.ignore();
 }
 
+
 bool isPasswordValid(string password) 
 {
 	for (char pass : password) // Foreach character in password check all invalid characters and if any are invalid return false.
@@ -186,6 +201,21 @@ bool isPasswordValid(string password)
 			if (pass == invalid)
 				return false;
 		}
+	}
+	return true;
+}
+bool isUsernameValid(string username) 
+{
+	auto toLower = [](string& s) { // Lambda function for converting a string or char[] to lowercase.
+		transform(s.begin(), s.end(),
+			s.begin(), ::tolower);
+	};
+
+	toLower(username);
+	for (string x : usernames) {
+		toLower(x);
+		if (x == username)
+			return false;
 	}
 	return true;
 }
