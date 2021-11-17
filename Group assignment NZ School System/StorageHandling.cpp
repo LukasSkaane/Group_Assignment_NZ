@@ -10,7 +10,8 @@ using namespace std;
 const string FOLDER = "Saved/",
 STUD_FILEPATH = FOLDER + "savedStudents.dat",
 PARENT_FILEPATH = FOLDER + "savedParents.dat",
-TEACHER_FILEPATH = FOLDER + "savedTeachers.dat";
+TEACHER_FILEPATH = FOLDER + "savedTeachers.dat",
+ADMIN_FILEPATH = FOLDER + "savedAdmins.dat";
 
 /// <Saving>
 /// This section is used for saving different things to STUD_FILEPATH, PARENT_FILEPATH & TEACHER_FILEPATH;
@@ -28,6 +29,10 @@ void saveToFile(Parent& parent) {
 
 void saveToFile(Teacher& teacher) {
 	saveToBinaryFile(teacher, TEACHER_FILEPATH);
+}
+
+void saveToFile(Admin& admin) {
+	saveToBinaryFile(admin, TEACHER_FILEPATH);
 }
 
 template<class T>
@@ -50,6 +55,7 @@ void getUsersFromFilepath(vector<T>&, const string FILEPATH);
 template<class T>
 void extractUsernames(const vector<T>& user, vector<string>& usernames);
 
+// These are here because you cannot call generic functions from another file, so an intermediary function is required.
 void getStudents(vector<Student>& students) {
 	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
 }
@@ -59,19 +65,25 @@ void getParents(vector<Parent>& parents) {
 void getTeachers(vector<Teacher>& teachers) {
 	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
 }
+void getAdmins(vector<Admin>& admins) { 
+	getUsersFromFilepath<Admin>(admins, ADMIN_FILEPATH);
+}
 
 void getUsernames(vector<string>& usernames) {
 	vector<Student> students;
 	vector<Parent> parents;
 	vector<Teacher> teachers;
+	vector<Admin> admins;
 
 	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
 	getUsersFromFilepath<Parent>(parents, PARENT_FILEPATH);
 	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
+	getUsersFromFilepath<Admin>(admins, ADMIN_FILEPATH);
 
 	extractUsernames<Student>(students, usernames);
 	extractUsernames<Parent>(parents, usernames);
 	extractUsernames<Teacher>(teachers, usernames);
+	extractUsernames<Admin>(admins, usernames);
 }
 
 template<class T>

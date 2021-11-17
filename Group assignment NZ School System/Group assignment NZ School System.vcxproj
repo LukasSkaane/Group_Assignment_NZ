@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Group assignment NZ School System.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Registration.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="StorageHandling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="StorageHandling.h" />
     <ClInclude Include="Introduction.h" />
     <ClInclude Include="Login.h" />
