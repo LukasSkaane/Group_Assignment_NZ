@@ -50,6 +50,16 @@ void getUsersFromFilepath(vector<T>&, const string FILEPATH);
 template<class T>
 void extractUsernames(const vector<T>& user, vector<string>& usernames);
 
+void getStudents(vector<Student>& students) {
+	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
+}
+void getParents(vector<Parent>& parents) {
+	getUsersFromFilepath<Parent>(parents, PARENT_FILEPATH);
+}
+void getTeachers(vector<Teacher>& teachers) {
+	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
+}
+
 void getUsernames(vector<string>& usernames) {
 	vector<Student> students;
 	vector<Parent> parents;

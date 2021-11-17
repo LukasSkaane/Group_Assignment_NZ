@@ -12,4 +12,8 @@ void saveToFile(Teacher&);
 
 void getUsernames(vector<string>&);
 
+void getStudents(vector<Student>& students);
+void getParents(vector<Parent>& parents);
+void getTeachers(vector<Teacher>& teachers);
+
 #endif // !STORAGEHANDLING_H
