@@ -1,5 +1,7 @@
-﻿  Group assignment NZ School System.cpp
+﻿  Introduction.cpp
+C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Introduction.cpp(19,81): error C2065: 'z': undeclared identifier
+C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Introduction.cpp(20,1): error C2143: syntax error: missing ';' before '}'
+  Source1.cpp
+  Source2.cpp
   StorageHandling.cpp
   Generating Code...
-  LINK : C:\Users\lukas\Source\Repos\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe not found or not built by the last incremental link; performing full link
-  Group assignment NZ School System.vcxproj -> C:\Users\lukas\Source\Repos\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
