@@ -145,6 +145,8 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="Introduction.cpp" />
+    <ClCompile Include="Source1.cpp" />
+    <ClCompile Include="Source2.cpp" />
     <ClCompile Include="StorageHandling.cpp" />
   </ItemGroup>
   <ItemGroup>
