@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Introduction.cpp
 C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Introduction.cpp(19,81): error C2065: 'z': undeclared identifier
 C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Introduction.cpp(20,1): error C2143: syntax error: missing ';' before '}'
@@ -5,3 +6,11 @@ C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\I
   Source2.cpp
   StorageHandling.cpp
   Generating Code...
+=======
+﻿  Group assignment NZ School System.cpp
+  Source.cpp
+  Registration.cpp
+  StorageHandling.cpp
+  Generating Code...
+  Group assignment NZ School System.vcxproj -> C:\Users\lukas\source\repos\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
+>>>>>>> 64ea80eb7d8dd1f6de08dd5185dc2d6c862092e8

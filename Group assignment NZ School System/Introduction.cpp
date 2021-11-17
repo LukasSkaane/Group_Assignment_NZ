@@ -16,5 +16,5 @@ void introduction()  // If the function signature is changed, the declaration in
 
 	cout << "   TERM STARTING:  17 JAN 2022 to 19 JUN 2022 " << endl;
 
-	cout << "------------------------------------------------------------" << endl;z
+	cout << "------------------------------------------------------------" << endl;
 }

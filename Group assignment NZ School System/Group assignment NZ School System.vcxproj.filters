@@ -27,10 +27,10 @@
     <ClCompile Include="Introduction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StorageHandling.cpp">
+    <ClCompile Include="Group assignment NZ School System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Group assignment NZ School System.cpp">
+    <ClCompile Include="StorageHandling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source1.cpp">

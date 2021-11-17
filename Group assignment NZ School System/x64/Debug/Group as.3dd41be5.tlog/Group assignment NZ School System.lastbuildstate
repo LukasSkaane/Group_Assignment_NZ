@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 PlatformToolSet=v142:VCToolArchitecture=Native32Bit:VCToolsVersion=14.29.30133:TargetPlatformVersion=10.0.19041.0:
 Debug|x64|C:\Users\Mohamed Sanahui\Group_Assignment_NZ\|
+=======
+PlatformToolSet=v142:VCToolArchitecture=Native32Bit:VCToolsVersion=14.29.30133:VCServicingVersionATL=14.29.30136:VCServicingVersionCrtHeaders=14.29.30136:VCServicingVersionCompilers=14.29.30136:TargetPlatformVersion=10.0.19041.0:
+Debug|x64|C:\Users\lukas\source\repos\Group_Assignment_NZ\|
+>>>>>>> 64ea80eb7d8dd1f6de08dd5185dc2d6c862092e8
