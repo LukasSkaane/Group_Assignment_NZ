@@ -3,6 +3,8 @@
 
 #include "Menu.h"
 
-int getMenuChoice(int perms);
+void menu();
+
+
 
 #endif // !MENU_H

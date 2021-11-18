@@ -2,7 +2,41 @@
 #include <string>
 #include <iostream>
 
+#include "Structures.h"
+#include "StorageHandling.h"
+
 using namespace std;
+
+void login(Student&); /// This is what the login function should look like, since passing structures as references is a good, memory-efficient practice. 
+void login(Parent&); /// I point this out because I previously said that they should return their respective types, but this is a better solution. :)
+void login(Teacher&);
+void login(Admin&);  
+// ^^^^ This is called overloading, when multiple functions have the same name but different signatures (aka different input arguments).
+// Arthur went over it at some point. Its a good, but easy name to forget :)
+
+// Here are a few things that might come in handy when you're re-writing the login.cpp
+void exampleForMohamed() {
+	vector<string> usernames; // vector of type string for storing a list of usernames.
+	getUsernames(usernames); // This will add all usernames stored in all files to this vector. 
+							 // (It is included with '#include "StorageHandling.h"' at the top.)
+							 // (It will NOT remove any existing usernames already in the list.)
+
+	vector<Student> students; // vector of type Student for storing a list of Students.
+	getStudents(students);	// This will add all students stored in the "savedStudents.dat" file.
+							// (It is included with '#include "StorageHandling.h"' at the top.)
+							// (It will NOT remove any existing usernames already in the list.)
+	
+	// You can look in "Structures.h" for how to access username/password as well as other variables inside the structs, or ask me if you're unsure.
+
+	// For the other types its as simple as:
+	vector<Parent> parents;
+	getParents(parents);
+
+	// And so on...
+						
+	/// All the stuff about choosing what type of user you want to login as is chosen in Menu.cpp, So you "only" need to write the code to actually log in to a specific user type.
+	/// 
+}
 
 bool saveStudentToFile();
 bool saveParentToFile();

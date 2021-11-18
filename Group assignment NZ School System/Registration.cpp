@@ -14,64 +14,24 @@ const array<char, 3> invalidPasswordChars = { '\\', '\'', '\"'};
 // Disallowing back-slash (\), single-quote ('), double-quote (") because I believe incorrect handling would result in an untraceable exception. (I'd rather not try to debug that)
 vector<string> usernames;
 
-template<class T>
-void createPersonalDetails(T&);
-void createStudent(Student&);
-void createParent(Parent&);
-void createTeacher(Teacher&);
-void createAdmin(); // Incomplete
+void createPersonalDetails(Person&);
+void registerUser(Student&);
+void registerUser(Parent&);
+void registerUser(Teacher&);
+void registerUser(Admin&); // Incomplete
 
 vector<char[]> addLessons(); 
 // As of now does not work, I am unsure how to save a 
 // list of student classes so will wait before adding this functionality.
-
-void registration() 
-{
-	char input;
-	getUsernames(usernames);
-
-
-	cout << "Welcome to registration system.\n"
-		<< "Please choose an option:\n"
-		<< "1. Register Student\n"
-		<< "2. Register Parent\n"
-		<< "3. Register Teacher\n";	
-	cin >> input;
-
-	switch (input)
-	{
-	case '1':
-	{
-		Student student;
-		createStudent(student);
-		saveToFile(student);
-		break;
-	}
-	case '2': 
-	{
-		Parent parent;
-		createParent(parent);
-		saveToFile(parent);
-		break;
-	}
-	case '3': 
-	{
-		Teacher teacher;
-		createTeacher(teacher);
-		saveToFile(teacher);
-		break;
-	}
-	default:
-		cout << "Invalid input" << endl;
-		break;
-	}
-}
-
 int setStudentId();
-void createStudent(Student& student) 
+bool isPasswordValid(string);
+bool isUsernameValid(string);
+
+
+void registerUser(Student& student) 
 {
 	cout << "Set personal details for student." << endl;
-	createPersonalDetails(student);
+	createPersonalDetails(student.personalDetails);
 	student.studentId = setStudentId();
 	//student.classesList = addLessons();
 	// setCaregiver(student.caregiverPrimary);
@@ -99,60 +59,46 @@ void createStudent(Student& student)
 //
 //	return lessonList;
 //}
-int setStudentId() {
-	int tempId;
-	bool invalidId = false;
-	do
-	{
-		cout << "Set student id: ";
-		cin >> tempId;
-		// Check ID validity
-	} while (invalidId);
 
-	cin.ignore();
-	return tempId;
-}
-
-
-void createParent(Parent& parent)
+void registerUser(Parent& parent)
 {
 	cout << "Set personal details for parent." << endl;
-	createPersonalDetails(parent);
+	createPersonalDetails(parent.personalDetails);
 }
 
-
-void createTeacher(Teacher& teacher)
+void registerUser(Teacher& teacher)
 {
 	cout << "Set personal details for teacher." << endl;
-	createPersonalDetails(teacher);
-
+	createPersonalDetails(teacher.personalDetails);
 }
 
-bool isPasswordValid(string);
-bool isUsernameValid(string);
-template <class T>
-void createPersonalDetails(T& p)
+void registerUser(Admin& admin) {
+	cout << "Set personal details for admin." << endl;
+	createPersonalDetails(admin.personalDetails);
+}
+
+void createPersonalDetails(Person& p)
 {
 	cout << "First name: ";
-	cin >> p.personalDetails.firstName;
+	cin >> p.firstName;
 
 	cout << "Middle name: ";
-	cin >> p.personalDetails.middleName;
+	cin >> p.middleName;
 
 	cout << "Last name: ";
-	cin >> p.personalDetails.lastName;
+	cin >> p.lastName;
 
 	cout << "Gender: ";
-	cin >> p.personalDetails.gender;
+	cin >> p.gender;
 
 	cout << "Birth date in format mm/dd/yyyy: ";
-	cin >> p.personalDetails.birthDate;
+	cin >> p.birthDate;
 
 	cout << "Email address: ";
-	cin >> p.personalDetails.emailAddress;
+	cin >> p.emailAddress;
 
 	cout << "Contact number: ";
-	cin >> p.personalDetails.contactNumber;
+	cin >> p.contactNumber;
 
 	bool invalidUsername = false;
 	do
@@ -161,7 +107,7 @@ void createPersonalDetails(T& p)
 		cout << "Username: ";
 		cin >> tempUsername;
 		if (isUsernameValid(tempUsername)) {
-			strcpy_s(p.personalDetails.username, tempUsername);
+			strcpy_s(p.username, tempUsername);
 			invalidUsername = false;
 		}
 		else {
@@ -178,7 +124,7 @@ void createPersonalDetails(T& p)
 		cin >> tempPassword;
 		if (isPasswordValid(tempPassword))
 		{
-			strcpy_s(p.personalDetails.password, tempPassword);
+			strcpy_s(p.password, tempPassword);
 			invalidPassword = false;
 		}
 		else 
@@ -191,7 +137,19 @@ void createPersonalDetails(T& p)
 	cin.ignore();
 }
 
+int setStudentId() {
+	int tempId;
+	bool invalidId = false;
+	do
+	{
+		cout << "Set student id: ";
+		cin >> tempId;
+		// Check ID validity
+	} while (invalidId);
 
+	cin.ignore();
+	return tempId;
+}
 bool isPasswordValid(string password) 
 {
 	for (char pass : password) // Foreach character in password check all invalid characters and if any are invalid return false.

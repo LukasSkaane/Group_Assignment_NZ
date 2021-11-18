@@ -9,11 +9,13 @@ using namespace std;
 void saveToFile(Student&);
 void saveToFile(Parent&);
 void saveToFile(Teacher&);
+void saveToFile(Admin&);
 
 void getUsernames(vector<string>&);
 
-void getStudents(vector<Student>& students);
-void getParents(vector<Parent>& parents);
-void getTeachers(vector<Teacher>& teachers);
+void getStudents(vector<Student>&);
+void getParents(vector<Parent>&);
+void getTeachers(vector<Teacher>&);
+void getAdmins(vector<Admin>&);
 
 #endif // !STORAGEHANDLING_H

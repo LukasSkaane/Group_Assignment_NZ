@@ -40,7 +40,6 @@ struct Teacher {
 };
 
 struct Admin {
-
 	Person personalDetails;
 };
 
