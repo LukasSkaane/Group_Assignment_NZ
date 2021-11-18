@@ -21,7 +21,7 @@ void registerUser(Teacher&);
 void registerUser(Admin&); // Incomplete
 
 vector<char[]> addLessons(); 
-// As of now does not work, I am unsure how to save a 
+// ^As of now does not work, I am unsure how to save a 
 // list of student classes so will wait before adding this functionality.
 int setStudentId();
 bool isPasswordValid(string);
