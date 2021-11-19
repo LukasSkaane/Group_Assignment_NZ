@@ -8,7 +8,7 @@
 
 using namespace std;
 
-enum Permissions { NONE, TEACHER, ADMIN };
+enum Permissions { NONE, TEACHER_PERMS, ADMIN_PERMS };
 enum MenuOptions { LOGIN = 1, REGISTER, STUDENT_RECORDS, QUIT = 'q' };
 enum Type { STUDENT = 1, PARENT, TEACHER, ADMIN };
 
@@ -39,14 +39,18 @@ void menu()
 			cout << "Choose what you want to log in as: " << endl;
 			chosenType = chooseType();
 
-			if (chosenType == STUDENT)
-				login(student);
-			else if (chosenType == PARENT)
-				login(parent);
-			else if (chosenType == TEACHER)
-				login(teacher);
-			else if (chosenType == ADMIN)
-				login(admin);
+			if (chosenType == STUDENT) {
+				//login(student);
+			}
+			else if (chosenType == PARENT) {
+				//login(parent);
+			}
+			else if (chosenType == TEACHER) {
+				//login(teacher);
+			}
+			else if (chosenType == ADMIN) {
+				//login(admin);
+			}
 		}
 		else if (input == REGISTER) 
 		{
@@ -70,6 +74,10 @@ void menu()
 				saveToFile(admin);
 			}
 		}
+		else if (input == STUDENT_RECORDS)
+		{
+
+		}
 			
 
 
@@ -80,9 +88,9 @@ void displayMenu(int perms) {
 	cout << "\n\t1. Login" << endl
 		<< "\t2. Register" << endl;
 
-	if (perms <= TEACHER)
+	if (perms <= TEACHER_PERMS)
 		cout << "\t3. Student Records" << endl;
-	if (perms <= ADMIN)
+	if (perms <= ADMIN_PERMS)
 		cout << "\t4. Admin Screen" << endl;
 	cout << "\tQ. Quit" << endl;
 }

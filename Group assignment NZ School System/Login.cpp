@@ -4,6 +4,7 @@
 
 #include "Structures.h"
 #include "StorageHandling.h"
+#include "Login.h"
 
 using namespace std;
 
