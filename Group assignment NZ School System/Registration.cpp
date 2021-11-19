@@ -12,7 +12,7 @@ using namespace std;
 
 const array<char, 3> invalidPasswordChars = { '\\', '\'', '\"'}; 
 // Disallowing back-slash (\), single-quote ('), double-quote (") because I believe incorrect handling would result in an untraceable exception. (I'd rather not try to debug that)
-vector<string> usernames;
+
 
 void createPersonalDetails(Person&);
 void registerUser(Student&);
@@ -164,6 +164,9 @@ bool isPasswordValid(string password)
 }
 bool isUsernameValid(string username) 
 {
+	vector<string> usernames; 
+	getUsernames(usernames);
+
 	auto toLower = [](string& s) { // Lambda function for converting a string or char[] to lowercase.
 		transform(s.begin(), s.end(),
 			s.begin(), ::tolower);

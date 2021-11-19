@@ -1,2 +1,3 @@
-﻿  Login.cpp
+﻿  Menu.cpp
+C:\Users\lukas\source\repos\Group_Assignment_NZ\Group assignment NZ School System\Menu.cpp(277): warning C4715: 'chooseType': not all control paths return a value
   Group assignment NZ School System.vcxproj -> C:\Users\lukas\Source\Repos\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
