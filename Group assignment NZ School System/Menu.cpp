@@ -8,6 +8,7 @@
 #include "Introduction.h"
 #include "Registration.h"
 #include "StorageHandling.h"
+#include "StudentRecords.h"
 
 using namespace std;
 
@@ -15,17 +16,17 @@ enum Permissions { NONE, TEACHER_PERMS, ADMIN_PERMS };
 enum MenuOptions { LOGIN = 1, REGISTER, CREATE_TEST_USER, STUDENT_RECORDS, ADMIN_SCREEN, LOGOUT,  QUIT= 'q' };
 enum Type { STUDENT = 1, PARENT, TEACHER, ADMIN };
 
-void displayMenu(int, bool);
-int chooseType();
-int getPermissions(int);
-void printDots();
+void displayMenu(int, bool); 
+int chooseType(); // Choose type from Student, Parent, Teacher and Admin.
+int getPermissions(int); // Fetch permissions based on which type has been chosen.
+void printDots(); // Prints three ... (full-stop) with a slight delay inbetween each.
 
 int loginAsType();
 int registerAsType();
 void studentRecords(int);
 void adminScreen();
 
-// v Temporary functions used for testing purposes.
+// v Temporary functions used for testing purposes. Will be removed later.
 int createTestUserOfType();
 void createTestUser(Student&);
 void createTestUser(Parent& user);
@@ -285,8 +286,9 @@ int chooseType() {
 			invalidChoice = true;
 		}
 		else
-			return input;
+			invalidChoice = false;
 	} while (invalidChoice);
+	return input;
 }
 int getPermissions(int chosenType) {
 	if (chosenType == TEACHER_PERMS)

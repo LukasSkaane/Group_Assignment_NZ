@@ -22,6 +22,19 @@ void exampleForMohamed() {
 							 // (It is included with '#include "StorageHandling.h"' at the top.)
 							 // (It will NOT remove any existing usernames already in the list.)
 
+	char password[51];
+
+	cout << "input password: ";
+	cin >> password;
+
+	bool usernamesExists = false;
+	for (string x : usernames) {
+		if (x == password) {
+			usernamesExists = true;
+		}
+	}
+
+
 	vector<Student> students; // vector of type Student for storing a list of Students.
 	getStudents(students);	// This will add all students stored in the "savedStudents.dat" file.
 							// (It is included with '#include "StorageHandling.h"' at the top.)

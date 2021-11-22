@@ -12,6 +12,7 @@ void saveToFile(Teacher&);
 void saveToFile(Admin&);
 
 void getUsernames(vector<string>&);
+void getPasswords(vector<string>&);
 
 void getStudents(vector<Student>&);
 void getParents(vector<Parent>&);

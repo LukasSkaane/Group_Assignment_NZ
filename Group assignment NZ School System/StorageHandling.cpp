@@ -54,6 +54,8 @@ template<class T>
 void getUsersFromFilepath(vector<T>&, const string FILEPATH);
 template<class T>
 void extractUsernames(const vector<T>& user, vector<string>& usernames);
+template<class T>
+void extractPasswords(const vector<T>& user, vector<string>& passwords);
 
 // These are here because you cannot call generic functions from another file, so an intermediary function is required.
 void getStudents(vector<Student>& students) {
@@ -85,11 +87,33 @@ void getUsernames(vector<string>& usernames) {
 	extractUsernames<Teacher>(teachers, usernames);
 	extractUsernames<Admin>(admins, usernames);
 }
+void getPasswords(vector<string>& passwords) {
+	vector<Student> students;
+	vector<Parent> parents;
+	vector<Teacher> teachers;
+	vector<Admin> admins;
+
+	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
+	getUsersFromFilepath<Parent>(parents, PARENT_FILEPATH);
+	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
+	getUsersFromFilepath<Admin>(admins, ADMIN_FILEPATH);
+
+	extractPasswords<Student>(students, passwords);
+	extractPasswords<Parent>(parents, passwords);
+	extractPasswords<Teacher>(teachers, passwords);
+	extractPasswords<Admin>(admins, passwords);
+}
 
 template<class T>
 void extractUsernames(const vector<T>& user, vector<string>& usernames) {
 	for (const T& x : user) {
 		usernames.push_back(x.personalDetails.username);
+	}
+}
+template<class T>
+void extractPasswords(const vector<T>& user, vector<string>& passwords) {
+	for (const T& x : user) {
+		passwords.push_back(x.personalDetails.password);
 	}
 }
 
