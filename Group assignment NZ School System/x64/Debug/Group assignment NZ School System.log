@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Menu.cpp
 C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Menu.cpp(13,34): error C2365: 'TEACHER': redefinition; previous definition was 'enumerator'
 C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Menu.cpp(11): message : see declaration of 'TEACHER'
@@ -30,4 +31,8 @@ C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\L
 C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Login.cpp(143): message : see declaration of 'usernameExists'
   Registration.cpp
   StorageHandling.cpp
+=======
+﻿  StorageHandling.cpp
+  StudentRecords.cpp
+>>>>>>> 6701f1f37e6623f4216cf50dcf2b5a5fac4b50d6
   Generating Code...

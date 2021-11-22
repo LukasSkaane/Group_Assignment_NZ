@@ -7,6 +7,7 @@
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="Introduction.cpp" />
     <ClCompile Include="StorageHandling.cpp" />
+    <ClCompile Include="StudentRecords.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h" />
@@ -15,5 +16,6 @@
     <ClInclude Include="Login.h" />
     <ClInclude Include="Registration.h" />
     <ClInclude Include="Structures.h" />
+    <ClInclude Include="StudentRecords.h" />
   </ItemGroup>
 </Project>
