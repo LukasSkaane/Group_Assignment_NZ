@@ -1,9 +1,12 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
+
 
 #include "Structures.h"
 #include "StorageHandling.h"
+
 
 using namespace std;
 
@@ -11,6 +14,9 @@ void login(Student&); /// This is what the login function should look like, sinc
 void login(Parent&); /// I point this out because I previously said that they should return their respective types, but this is a better solution. :)
 void login(Teacher&);
 void login(Admin&);  
+bool isUsernameValid(string Username);
+int a;
+Teacher p;
 // ^^^^ This is called overloading, when multiple functions have the same name but different signatures (aka different input arguments).
 // Arthur went over it at some point. Its a good, but easy name to forget :)
 
@@ -44,8 +50,11 @@ bool loginAsTeacher()
 {
 	ifstream read;
 
-	string username, password, un, pw;
+	char username[51], password[51], un[51], pw[51];
+	vector<string> usernames;
+	vector<string> passwords;
 	int menu_option;
+	bool invalidUsername = false;
 	do {
 		cout << "LOGIN PAGE - *******************";
 		cout << "\n 1. LOG-IN AS STUDENT";
@@ -61,13 +70,25 @@ bool loginAsTeacher()
 		case 1:
 			cout << "LOGIN AS STUDENT";
 			cout << "****************";
-			cout << "Enter UserName :   "; cin >> username;
-			cout << "Enter PassWord :   "; cin >> password;
+			cout << "Enter UserName :   "; 
+			cin >> username;
+			bool usernameExists = false;
+			for (string x : usernames)
+			{
+				if (x == username) {
+					usernameExists = true;
+				}
+			}
 
-
-			read.open("data\\" + username + ".txt");
-			getline(read, un);
-			getline(read, pw);
+			cout << "Enter PassWord :   "; 
+			cin >> password;
+			bool passwordExists = false;
+			for (string x : passwords)
+			{
+				if (x == password) {
+					passwordExists = true;
+				}
+			}
 
 			if (un == username && pw == password)
 			{
@@ -84,13 +105,25 @@ bool loginAsTeacher()
 			cout << "****************";
 			cout << "Enter UserName :   ";
 			cin >> username;
+			bool usernameExists = false;
+			for (string x : usernames)
+			{
+				if (x == username) {
+					usernameExists = true;
+				}
+			}
 			cout << "Enter PassWord :   ";
 			cin >> password;
+			bool passwordExists = false;
+			for (string x : passwords)
+			{
+				if (x == password) {
+					passwordExists = true;
+				}
+			}
 
 
-			read.open("data\\" + username + ".txt");
-			getline(read, un);
-			getline(read, pw);
+			
 
 			if (un == username && pw == password)
 			{
@@ -105,13 +138,28 @@ bool loginAsTeacher()
 		case 3:
 			cout << " LOGIN AS TEACHER";
 			cout << "****************";
-			cout << "Enter UserName :   "; cin >> username;
-			cout << "Enter PassWord :   "; cin >> password;
+			cout << "Enter UserName :   "; 
+			cin >> username;
+			bool usernameExists = false;
+			for (string x : usernames)
+			{
+				if (x == username) {
+					usernameExists = true;
+				}
+			}
+			cout << "Enter PassWord :   ";
+			cin >> password;
+			cin >> password;
+			bool passwordExists = false;
+			for (string x : passwords)
+			{
+				if (x == password) {
+					passwordExists = true;
+				}
+			}
 
 
-			read.open("data\\" + username + ".txt");
-			getline(read, un);
-			getline(read, pw);
+			
 
 			if (un == username && pw == password)
 			{
