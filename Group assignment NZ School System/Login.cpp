@@ -30,8 +30,8 @@ void exampleForMohamed() {
 
 	char password[51];
 
-	cout << "input password: ";
-	cin >> password;
+	std::cout << "input password: ";
+	std::cin >> password;
 
 	bool usernamesExists = false;
 	for (string x : usernames) {
@@ -69,24 +69,28 @@ bool loginAsTeacher()
 	vector<string> passwords;
 	int menu_option;
 	bool invalidUsername = false;
-	do {
-		cout << "LOGIN PAGE - *******************";
-		cout << "\n 1. LOG-IN AS STUDENT";
-		cout << "\n 2. LOG-IN AS PARENT";
-		cout << "\n 3. LOG-IN AS TEACHER";
-		cout << "\n 4. EXIT";
 
-		cout << "\n\n Enter your option: ";
-		cin >> menu_option;
+	bool usernameExists;
+	bool passwordExists;
+
+	do {
+		std::cout << "LOGIN PAGE - *******************";
+		std::cout << "\n 1. LOG-IN AS STUDENT";
+		std::cout << "\n 2. LOG-IN AS PARENT";
+		std::cout << "\n 3. LOG-IN AS TEACHER";
+		std::cout << "\n 4. EXIT";
+
+		std::cout << "\n\n Enter your option: ";
+		std::cin >> menu_option;
 
 		switch (menu_option)
 		{
 		case 1:
-			cout << "LOGIN AS STUDENT";
-			cout << "****************";
-			cout << "Enter UserName :   "; 
-			cin >> username;
-			bool usernameExists = false;
+			std::cout << "LOGIN AS STUDENT";
+			std::cout << "****************";
+			std::cout << "Enter UserName :   ";
+			std::cin >> username;
+			usernameExists = false;
 			for (string x : usernames)
 			{
 				if (x == username) {
@@ -94,9 +98,9 @@ bool loginAsTeacher()
 				}
 			}
 
-			cout << "Enter PassWord :   "; 
-			cin >> password;
-			bool passwordExists = false;
+			std::cout << "Enter PassWord :   ";
+			std::cin >> password;
+			passwordExists = false;
 			for (string x : passwords)
 			{
 				if (x == password) {
@@ -115,20 +119,20 @@ bool loginAsTeacher()
 
 			break;
 		case 2:
-			cout << " LOGIN AS PARENT";
-			cout << "****************";
-			cout << "Enter UserName :   ";
-			cin >> username;
-			bool usernameExists = false;
+			std::cout << " LOGIN AS PARENT";
+			std::cout << "****************";
+			std::cout << "Enter UserName :   ";
+			std::cin >> username;
+			usernameExists = false;
 			for (string x : usernames)
 			{
 				if (x == username) {
 					usernameExists = true;
 				}
 			}
-			cout << "Enter PassWord :   ";
-			cin >> password;
-			bool passwordExists = false;
+			std::cout << "Enter PassWord :   ";
+			std::cin >> password;
+			passwordExists = false;
 			for (string x : passwords)
 			{
 				if (x == password) {
@@ -150,21 +154,21 @@ bool loginAsTeacher()
 
 			break;
 		case 3:
-			cout << " LOGIN AS TEACHER";
-			cout << "****************";
-			cout << "Enter UserName :   "; 
-			cin >> username;
-			bool usernameExists = false;
+			std::cout << " LOGIN AS TEACHER";
+			std::cout << "****************";
+			std::cout << "Enter UserName :   ";
+			std::cin >> username;
+			usernameExists = false;
 			for (string x : usernames)
 			{
 				if (x == username) {
 					usernameExists = true;
 				}
 			}
-			cout << "Enter PassWord :   ";
-			cin >> password;
-			cin >> password;
-			bool passwordExists = false;
+			std::cout << "Enter PassWord :   ";
+			std::cin >> password;
+			std::cin >> password;
+			passwordExists = false;
 			for (string x : passwords)
 			{
 				if (x == password) {
@@ -191,14 +195,14 @@ bool loginAsTeacher()
 			break;
 
 		default:
-			cout << "Sorry incorrect option entered in menu";
+			std::cout << "Sorry incorrect option entered in menu";
 			break;
 
 
 
 		}
 	} while (true);
-	system("CLS");
+	std::system("CLS");
 
 
 }

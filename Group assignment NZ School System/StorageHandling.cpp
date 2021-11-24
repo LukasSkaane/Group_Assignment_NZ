@@ -11,7 +11,8 @@ const string FOLDER = "Saved/",
 STUD_FILEPATH = FOLDER + "savedStudents.dat",
 PARENT_FILEPATH = FOLDER + "savedParents.dat",
 TEACHER_FILEPATH = FOLDER + "savedTeachers.dat",
-ADMIN_FILEPATH = FOLDER + "savedAdmins.dat";
+ADMIN_FILEPATH = FOLDER + "savedAdmins.dat",
+LECTURE_FILEPATH = FOLDER + "savedLectures.dat";
 
 /// <Saving>
 /// This section is used for saving different things to STUD_FILEPATH, PARENT_FILEPATH & TEACHER_FILEPATH;
@@ -22,17 +23,17 @@ void saveToBinaryFile(T, const string);
 void saveToFile(Student& stud) {
 	saveToBinaryFile(stud, STUD_FILEPATH);
 }
-
 void saveToFile(Parent& parent) {
 	saveToBinaryFile(parent, PARENT_FILEPATH);
 }
-
 void saveToFile(Teacher& teacher) {
 	saveToBinaryFile(teacher, TEACHER_FILEPATH);
 }
-
 void saveToFile(Admin& admin) {
 	saveToBinaryFile(admin, TEACHER_FILEPATH);
+}
+void saveToFile(Lecture& lecture) {
+	saveToBinaryFile(lecture, LECTURE_FILEPATH);
 }
 
 template<class T>
@@ -51,7 +52,7 @@ void saveToBinaryFile(T user, const string FILEPATH) {
 /// This section is used for loading different things from STUD_FILEPATH, PARENT_FILEPATH & TEACHER_FILEPATH;
 
 template<class T>
-void getUsersFromFilepath(vector<T>&, const string FILEPATH);
+void loadFromFilepath(vector<T>&, const string FILEPATH);
 template<class T>
 void extractUsernames(const vector<T>& user, vector<string>& usernames);
 template<class T>
@@ -59,16 +60,20 @@ void extractPasswords(const vector<T>& user, vector<string>& passwords);
 
 // These are here because you cannot call generic functions from another file, so an intermediary function is required.
 void getStudents(vector<Student>& students) {
-	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
+	loadFromFilepath<Student>(students, STUD_FILEPATH);
 }
 void getParents(vector<Parent>& parents) {
-	getUsersFromFilepath<Parent>(parents, PARENT_FILEPATH);
+	loadFromFilepath<Parent>(parents, PARENT_FILEPATH);
 }
 void getTeachers(vector<Teacher>& teachers) {
-	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
+	loadFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
 }
 void getAdmins(vector<Admin>& admins) { 
-	getUsersFromFilepath<Admin>(admins, ADMIN_FILEPATH);
+	loadFromFilepath<Admin>(admins, ADMIN_FILEPATH);
+}
+
+void getLectures(vector<Lecture>& lectures) {
+	loadFromFilepath<Lecture>(lectures, LECTURE_FILEPATH);
 }
 
 void getUsernames(vector<string>& usernames) {
@@ -77,10 +82,10 @@ void getUsernames(vector<string>& usernames) {
 	vector<Teacher> teachers;
 	vector<Admin> admins;
 
-	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
-	getUsersFromFilepath<Parent>(parents, PARENT_FILEPATH);
-	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
-	getUsersFromFilepath<Admin>(admins, ADMIN_FILEPATH);
+	loadFromFilepath<Student>(students, STUD_FILEPATH);
+	loadFromFilepath<Parent>(parents, PARENT_FILEPATH);
+	loadFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
+	loadFromFilepath<Admin>(admins, ADMIN_FILEPATH);
 
 	extractUsernames<Student>(students, usernames);
 	extractUsernames<Parent>(parents, usernames);
@@ -93,10 +98,10 @@ void getPasswords(vector<string>& passwords) {
 	vector<Teacher> teachers;
 	vector<Admin> admins;
 
-	getUsersFromFilepath<Student>(students, STUD_FILEPATH);
-	getUsersFromFilepath<Parent>(parents, PARENT_FILEPATH);
-	getUsersFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
-	getUsersFromFilepath<Admin>(admins, ADMIN_FILEPATH);
+	loadFromFilepath<Student>(students, STUD_FILEPATH);
+	loadFromFilepath<Parent>(parents, PARENT_FILEPATH);
+	loadFromFilepath<Teacher>(teachers, TEACHER_FILEPATH);
+	loadFromFilepath<Admin>(admins, ADMIN_FILEPATH);
 
 	extractPasswords<Student>(students, passwords);
 	extractPasswords<Parent>(parents, passwords);
@@ -118,7 +123,7 @@ void extractPasswords(const vector<T>& user, vector<string>& passwords) {
 }
 
 template<class T>
-void getUsersFromFilepath(vector<T>& users, const string FILEPATH) {
+void loadFromFilepath(vector<T>& users, const string FILEPATH) {
 	ifstream inHandle;
 
 	T buffer;

@@ -19,11 +19,11 @@ enum Type { STUDENT = 1, PARENT, TEACHER, ADMIN };
 void displayMenu(int, bool); 
 int chooseType(); // Choose type from Student, Parent, Teacher and Admin.
 int getPermissions(int); // Fetch permissions based on which type has been chosen.
-void printDots(); // Prints three ... (full-stop) with a slight delay inbetween each.
+void printDots(); // Prints ... (full-stop) with a slight delay inbetween each.
 
 int loginAsType();
 int registerAsType();
-void studentRecords(int);
+void studentRecordsAsType(int);
 void adminScreen();
 
 // v Temporary functions used for testing purposes. Will be removed later.
@@ -72,8 +72,12 @@ void menu()
 			chosenType = createTestUserOfType();
 
 		else if (iInput == STUDENT_RECORDS)
-			studentRecords(chosenType);
-
+			if (permissions >= TEACHER_PERMS)
+				studentRecordsAsType(chosenType);
+			else {
+				cout << "Invalid input";
+				printDots();
+			}
 		else if (iInput == ADMIN_SCREEN && permissions >= ADMIN)
 			adminScreen();
 
@@ -84,6 +88,7 @@ void menu()
 			cout << "Logging '" << user.username << "' out";
 			printDots();
 		}
+
 		else if (tolower(cInput) == QUIT) {
 			menuLoop = false;
 		}
@@ -123,7 +128,6 @@ int loginAsType() {
 			system("CLS");
 			invalidInput = true;
 		}
-
 	} while (invalidInput);
 	return chosenType;
 }
@@ -209,8 +213,13 @@ int createTestUserOfType() {
 
 	return chosenType;
 }
-void studentRecords(int chosenType) {
-
+void studentRecordsAsType(int chosenType) {
+	if (chosenType == TEACHER) {
+		studentRecords(teacher);
+	}
+	else if (chosenType == ADMIN) {
+		studentRecords(admin);
+	}
 }
 void adminScreen() {
 
@@ -250,14 +259,14 @@ void displayMenu(int perms, bool loggedIn) {
 	menuItemsCount++;
 
 	cout << "\t" << menuItemsCount << ". Student Records";
-	if (perms <= TEACHER_PERMS)
+	if (perms < TEACHER_PERMS)
 		cout << " - Not enough permissions.";
 	cout << endl;
 	menuItemsCount++;
 
 
 	cout << "\t" << menuItemsCount << ". Admin Screen";
-	if (perms <= ADMIN_PERMS)
+	if (perms < ADMIN_PERMS)
 		cout << " - Not enough permissions.";
 	cout << endl;
 	menuItemsCount++;
@@ -291,9 +300,9 @@ int chooseType() {
 	return input;
 }
 int getPermissions(int chosenType) {
-	if (chosenType == TEACHER_PERMS)
+	if (chosenType == TEACHER)
 		return TEACHER_PERMS;
-	else if (chosenType == ADMIN_PERMS)
+	else if (chosenType == ADMIN)
 		return ADMIN_PERMS;
 	else
 		return 0;
