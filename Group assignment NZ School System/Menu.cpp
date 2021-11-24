@@ -63,7 +63,8 @@ void menu()
 		iInput = cInput - '0'; // Converts the input of type char to int.
 		
 		if (iInput == LOGIN)
-			chosenType = loginAsType();
+			loginAsTeacher();
+			//chosenType = loginAsType();
 
 		else if (iInput == REGISTER)
 			chosenType = registerAsType();
