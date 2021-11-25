@@ -48,8 +48,7 @@ struct Lecture {
 	char lectureName[51] = { 0 },
 		studentUsernames[maxStudents][51] = { 0 },
 		grades[maxStudents] = { 0 },
-		progression[maxStudents][11] = { 0 }; // Achieved, Progressing, Need Help.
-
+		progression[maxStudents][51] = { 0 }; // Achieved, Progressing, Need Help.
 };
 
 

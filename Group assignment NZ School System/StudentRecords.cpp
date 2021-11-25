@@ -13,22 +13,25 @@ enum MainMenuOptions { ADD = 1, EDIT, DELETE, UPDATE, SELECT_LECTURE, ALL_RECORD
 
 template <class T>
 void studentRecordsMenu(T&, int);
-void displayMainMenu();
+void displayMainMenu(const string, const int);
 void displaySecondaryMenu();
 int menuSelection(int min, int max);
+int countStudentsInLecture(Lecture&);
+int getIndexForStudentInLecture(Lecture&, char[]);
 
 bool getStudentByFirstName(Student&);
 bool getStudentByUsername(Student&);
 void registerNewStudent(Student&);
+void getStudentByIndex(Student&);
 
 void selectStudent(Student&);
 
 void addStudent(Student&, Lecture&);
 void editStudent(Student&, Lecture&);
-void deleteStudent(Student&, Lecture&);
+void removeStudent(Student&, Lecture&);
 void updateRecord(Student&, Lecture&);
-void selectLecture(Lecture&);
-void displayAllRecords();
+int selectLecture(vector<Lecture>&);
+void displayAllRecords(Lecture&);
 
 void studentRecords(Teacher& teacher) {
 	studentRecordsMenu<Teacher>(teacher, TEACHER_PERMS);
@@ -39,140 +42,224 @@ void studentRecords(Admin& admin) {
 
 void createTestLecture();
 
-
 template <class T>
 void studentRecordsMenu(T& user, int perms) {
-	int selection;
+	int selectionMenu;
 	bool loopFlag = true;
 	Student student;
-	Lecture selectedLecture;
+
+	int selectedLecture = -1;
+	vector<Lecture> lectures;
+	getLectures(lectures);
+
+	if (lectures.empty()) {
+		Lecture testLecture;
+		char name[51] = "CS101";
+		strcpy_s(testLecture.lectureName, name);
+		lectures.push_back(testLecture);
+		updateSavedLecture(lectures);
+	}
 
 	do
 	{
 		system("CLS");
-		selectLecture(selectedLecture);
-		system("CLS");
+		if (selectedLecture == -1) {
+			selectedLecture = selectLecture(lectures);
+			system("CLS");
+		}
 
-		displayMainMenu();
+		displayMainMenu(lectures[selectedLecture].lectureName, countStudentsInLecture(lectures[selectedLecture]));
 		// createTestLecture();
-		selection = menuSelection(ADD, BACK);
+		selectionMenu = menuSelection(ADD, BACK + 1);
 
-		if (selection >= ADD && selection < SELECT_LECTURE) {
+		 if (selectionMenu == BACK + 1)
+			createTestLecture();
+
+		 else if (selectionMenu >= ADD && selectionMenu < SELECT_LECTURE) {
 			system("CLS");
 
 			selectStudent(student);
 
-			if (selection == ADD)
-				addStudent(student, selectedLecture);
+			if (selectionMenu == ADD)
+				addStudent(student, lectures[selectedLecture]);
 
-			else if (selection == EDIT)
-				editStudent(student, selectedLecture);
+			else if (selectionMenu == EDIT)
+				editStudent(student, lectures[selectedLecture]);
 
-			else if (selection == DELETE)
-				deleteStudent(student, selectedLecture);
+			else if (selectionMenu == DELETE)
+				removeStudent(student, lectures[selectedLecture]);
 
-			else if (selection == UPDATE)
-				updateRecord(student, selectedLecture);
+			else if (selectionMenu == UPDATE)
+				updateRecord(student, lectures[selectedLecture]);
+
+			updateSavedLecture(lectures);
 		}
 		else
 		{
-			if (selection == SELECT_LECTURE)
-				selectLecture(selectedLecture);
+			if (selectionMenu == SELECT_LECTURE)
+				selectedLecture = selectLecture(lectures);
 
-			else if (selection == ALL_RECORDS)
-			displayAllRecords();
+			else if (selectionMenu == ALL_RECORDS)
+			displayAllRecords(lectures[selectedLecture]);
 
-			else if (selection == BACK)
+			else if (selectionMenu == BACK)
 			loopFlag = false;
 		}
 	} while (loopFlag);
 }
 
 void selectStudent(Student& student) {
-	enum StudentSelector { BY_NAME = 1, BY_USERNAME, REGISTER_NEW };
-	int selection;
+	enum StudentSelector { BY_NAME = 1, BY_USERNAME, REGISTER_NEW, BY_INDEX };
+	int selectionMenu;
 	bool selected = false;
 
-	displaySecondaryMenu();
-	selection = menuSelection(BY_NAME, REGISTER_NEW);
+	while (!selected) {
+		displaySecondaryMenu();
+		selectionMenu = menuSelection(BY_NAME, REGISTER_NEW);
 
-	if (selection == BY_NAME) {
-		while (!selected) {
-			if (getStudentByFirstName(student))
-				selected = true;
-			else {
-				cout << "No students with that first name exist." << endl;
-				cout << "Do you want to try again? (y/n)" << endl;
-				char input;
-				cin >> input;
-				if (tolower(input) == 'n')
-					break;
-				else 
-					continue;
+		if (selectionMenu == BY_NAME) {
+			while (!selected) {
+				if (getStudentByFirstName(student))
+					selected = true;
+				else {
+					cout << "No students with that first name exist." << endl;
+					cout << "Do you want to try again? (y/n)" << endl;
+					char input;
+					cin >> input;
+					if (tolower(input) == 'n')
+						break;
+					else
+						continue;
+				}
 			}
 		}
-	}
-	else if (selection == BY_USERNAME) {		
-		while (!selected) {
-			if (getStudentByUsername(student))
-				selected = true;
-			else {
-				cout << "No students with that username exist." << endl;
-				cout << "Do you want to try again? (y/n)" << endl;
-				char input;
-				cin >> input;
-				if (tolower(input) == 'n')
-					break;
-				else
-					continue;
+		else if (selectionMenu == BY_USERNAME) {
+			while (!selected) {
+				if (getStudentByUsername(student))
+					selected = true;
+				else {
+					cout << "No students with that username exist." << endl;
+					cout << "Do you want to try again? (y/n)" << endl;
+					char input;
+					cin >> input;
+					if (tolower(input) == 'n')
+						break;
+					else
+						continue;
+				}
 			}
 		}
-	}
-	else if (selection == REGISTER_NEW) {
-		registerNewStudent(student);
-		selected = true;
-	}
-	else {
-		cout << "Invalid input" << endl;
-		selected = false;
+		else if (selectionMenu == REGISTER_NEW) {
+			registerNewStudent(student);
+			selected = true;
+		}
+		else if (selectionMenu == BY_INDEX) {
+			int selectionUser;
+
+			vector<Student> students;
+			getStudents(students);
+
+			while (!selected) {
+				cout << "Choose a student in the list: (fullname, username)" << endl;
+
+				int count = 1;
+				for (Student& x : students) {
+					cout << count << ". " << x.personalDetails.firstName << " "
+						<< x.personalDetails.middleName << " "
+						<< x.personalDetails.lastName
+						<< ", "
+						<< x.personalDetails.username << endl;
+					count++;
+				}
+
+				selectionUser = menuSelection(1, count);
+				student = students[selectionUser - 1.];
+				selected = true;
+			}
+		}
+		else {
+			cout << "Invalid input" << endl;
+			selected = false;
+		}
+		system("CLS");
 	}
 }
 
 void addStudent(Student& student, Lecture& lecture) {
 	
+	int index = countStudentsInLecture(lecture);
+	char grade;
+	char progression[51];
+	
+	strcpy_s(lecture.studentUsernames[index], student.personalDetails.username);
+
+	cout << "What is " << student.personalDetails.firstName << "'s grade?" << endl;
+	cin >> grade;
+	lecture.grades[index] = grade;
+	cin.ignore();
+
+	cout << "& how are they progressing? (Failed/Progressing/Achieved)" << endl;
+	cin >> progression;
+	strcpy_s(lecture.progression[index], progression);
+
+	cout << "Added student " << student.personalDetails.username << " to lecture: " << lecture.lectureName << endl;
+	cin.ignore();
 }
 void editStudent(Student& student, Lecture& lecture) {
+	int index = getIndexForStudentInLecture(lecture, student.personalDetails.username);
+	
+	if (index != -1)
+	{
+		char grade;
+		char progression[51];
 
+		cout << "Student: " << lecture.studentUsernames[index] << endl
+			<< "Grade: " << lecture.grades[index] << endl
+			<< "Progression: " << lecture.progression[index] << endl << endl;
+
+		cout << "New grade: ";
+		cin >> grade;
+		lecture.grades[index] = grade;
+
+		cout << "New progression status: ";
+		cin >> progression;
+		strcpy_s(lecture.progression[index], progression);
+	}
+	else
+		cout << "Student with username \'" << student.personalDetails.username << "\' is not in lecture " << lecture.lectureName << endl;
+
+	system("pause");
 }
-void deleteStudent(Student& student, Lecture& lecture) {
+void removeStudent(Student& student, Lecture& lecture) {
 
 }
 void updateRecord(Student& student, Lecture& lecture) {
 
 }
-void selectLecture(Lecture& lecture) {
-	vector<Lecture> lectures;
+int selectLecture(vector<Lecture>& lectures) {
+	lectures.clear();
 	getLectures(lectures);
 
-	int count = 1;
+	int count = 0;
 	int selection;
 
 	if (!lectures.empty()) {
 		cout << "Select lecture: " << endl;
 		for (Lecture& x : lectures) {
-			cout << count << ". " << x.lectureName << endl;
+			cout << count + 1 << ". " << x.lectureName << endl;
 			count++;
 		}
 
 		selection = menuSelection(1, count);
-		lecture = lectures[selection - 1];
+		return selection - 1;
 	}
 	else {
 		cout << "No lectures exist." << endl;
 		system("pause");
+		return 0;
 	}
 }
-void displayAllRecords(){
+void displayAllRecords(Lecture& lecture){
 	
 }
 
@@ -199,6 +286,30 @@ Student selectIfMultiple(vector<Student>& students) {
 	selection = menuSelection(1, count);
 
 	return students[selection - 1.0];
+}
+int countStudentsInLecture(Lecture& lecture) {
+	int arrayRowSize = sizeof lecture.studentUsernames / sizeof lecture.studentUsernames[0];
+	int count = 0;
+	bool empty = true;
+
+	for (int i = 0; i < arrayRowSize; i++) {
+		for (char x : lecture.studentUsernames[i]) {
+			if (x != '0')
+				empty = false;
+		}
+		if (empty)
+			count++;
+	}
+	return count;
+}
+int getIndexForStudentInLecture(Lecture& lecture, char username[]) {
+	int arrayRowSize = sizeof lecture.studentUsernames / sizeof lecture.studentUsernames[0];
+
+	for (int i = 0; i < arrayRowSize; i++) {
+		if (strcmp(lecture.studentUsernames[i], username))
+			return i;
+	}
+	return -1;
 }
 
 bool getStudentByFirstName(Student& student) {
@@ -255,21 +366,27 @@ void registerNewStudent(Student& student) {
 	registerUser(student);
 }
 
-void displayMainMenu() {
-	cout << "1. Add student" << endl;
-	cout << "2. Edit student" << endl;
-	cout << "3. Delete student" << endl;
-	cout << "4. Update record" << endl;
-	cout << "5. Select class" << endl;
-	cout << "6. View all records" << endl << endl;
-	cout << "7. Go back" << endl;
+
+void displayMainMenu(const string lectureName, const int studentsInLecture) {
+	cout << "Selected Lecture: " << lectureName << endl
+		<< "Students in Lecture: " << studentsInLecture << endl
+		<< "--------------------------------------" << endl;
+	cout << "\t1. Add student" << endl;
+	cout << "\t2. Edit student" << endl;
+	cout << "\t3. Delete student" << endl;
+	cout << "\t4. Update record" << endl;
+	cout << "\t5. Select class" << endl;
+	cout << "\t6. View all records" << endl << endl;
+	cout << "\t7. Go back" << endl;
+
+	cout << "\t8. Create test lecture" << endl;
 }
 void displaySecondaryMenu() {
 	cout << "Choose student by: " << endl;
-	cout << "1. Search by Name. " << endl;
-	cout << "2. Search by username. " << endl;
-	cout << "3. Register new student. " << endl;
-	cout << "4. Go Back. " << endl;
+	cout << "\t1. Search by Name. " << endl;
+	cout << "\t2. Search by Username. " << endl;
+	cout << "\t3. Register new Student. " << endl;
+	cout << "\t4. Look through index." << endl;
 }
 int menuSelection(int min, int max) {
 	int input;
@@ -290,11 +407,13 @@ int menuSelection(int min, int max) {
 
 void createTestLecture() {
 	Lecture lecture;
-	lecture.lectureName[0] =  'C';
-	lecture.lectureName[1] = 'S';
-	lecture.lectureName[2] = '1';
-	lecture.lectureName[3] = '0';
-	lecture.lectureName[4] = '3';
+	char name[51];
+
+	cout << "Name of Lecture: ";
+	cin >> name;
+
+	strcpy_s(lecture.lectureName, name);
+
 	saveToFile(lecture);
 	cout << "Lecture saved to file. " << endl;
 	system("pause");

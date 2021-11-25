@@ -1,6 +1,7 @@
-#include <istream>
-#include <ostream>
+#include <iostream>
+#include <fstream>
 #include <locale>
+#include <stdio.h>
 
 #include "Structures.h"
 #include "StorageHandling.h"
@@ -12,13 +13,14 @@ STUD_FILEPATH = FOLDER + "savedStudents.dat",
 PARENT_FILEPATH = FOLDER + "savedParents.dat",
 TEACHER_FILEPATH = FOLDER + "savedTeachers.dat",
 ADMIN_FILEPATH = FOLDER + "savedAdmins.dat",
-LECTURE_FILEPATH = FOLDER + "savedLectures.dat";
+LECTURE_FILEPATH = FOLDER + "lectures.dat";
 
 /// <Saving>
 /// This section is used for saving different things to STUD_FILEPATH, PARENT_FILEPATH & TEACHER_FILEPATH;
 
 template<class T>
 void saveToBinaryFile(T, const string);
+void clearFile(const string);
 
 void saveToFile(Student& stud) {
 	saveToBinaryFile(stud, STUD_FILEPATH);
@@ -35,6 +37,12 @@ void saveToFile(Admin& admin) {
 void saveToFile(Lecture& lecture) {
 	saveToBinaryFile(lecture, LECTURE_FILEPATH);
 }
+void updateSavedLecture(vector<Lecture>& lectures) {
+	clearFile(LECTURE_FILEPATH);
+	for (Lecture& x : lectures) {
+		saveToFile(x);
+	}
+}
 
 template<class T>
 void saveToBinaryFile(T user, const string FILEPATH) {
@@ -43,7 +51,6 @@ void saveToBinaryFile(T user, const string FILEPATH) {
 	fileHandle.open(FILEPATH, ios::app | ios::binary);
 	fileHandle.write(reinterpret_cast<char*>(&user), sizeof(user));
 	fileHandle.close();
-	cout << "Saved to file." << endl;
 }
 
 /// </Saving>
@@ -73,7 +80,7 @@ void getAdmins(vector<Admin>& admins) {
 }
 
 void getLectures(vector<Lecture>& lectures) {
-	loadFromFilepath<Lecture>(lectures, LECTURE_FILEPATH);
+	loadFromFilepath(lectures, LECTURE_FILEPATH);
 }
 
 void getUsernames(vector<string>& usernames) {
@@ -139,3 +146,12 @@ void loadFromFilepath(vector<T>& users, const string FILEPATH) {
 }
 
 /// </Loading>
+
+/// <Other>
+void clearFile(const string FILEPATH) {
+	ofstream fileHandle;
+
+	fileHandle.open(FILEPATH); // Opening a file in non-append mode then closing it cleanly removes all contents inside a file.
+	fileHandle.close();
+}
+/// </Other>
