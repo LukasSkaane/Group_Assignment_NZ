@@ -1,1 +1,14 @@
+<<<<<<< HEAD
 ﻿  Group assignment NZ School System.vcxproj -> C:\Users\lukas\Source\Repos\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
+=======
+<<<<<<< HEAD
+﻿  Group assignment NZ School System.vcxproj -> C:\Users\Mohamed Sanahui\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
+=======
+﻿  Login.cpp
+  Menu.cpp
+  StudentRecords.cpp
+C:\Users\lukas\source\repos\Group_Assignment_NZ\Group assignment NZ School System\StudentRecords.cpp(201,28): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+  Generating Code...
+  Group assignment NZ School System.vcxproj -> C:\Users\lukas\Source\Repos\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
+>>>>>>> ba4a1f570275b2e65b49313c6ee7e17bd2bd82a5
+>>>>>>> f245048b1709804da373991c81ef1c7153f15288

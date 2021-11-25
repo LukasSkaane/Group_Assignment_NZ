@@ -11,10 +11,10 @@
 
 using namespace std;
 
-void login(Student&); /// This is what the login function should look like, since passing structures as references is a good, memory-efficient practice. 
-void login(Parent&); /// I point this out because I previously said that they should return their respective types, but this is a better solution. :)
-void login(Teacher&);
-void login(Admin&);  
+bool loginS(); /// This is what the login function should look like, since passing structures as references is a good, memory-efficient practice. 
+bool loginP(); /// I point this out because I previously said that they should return their respective types, but this is a better solution. :)
+bool loginT();
+bool loginA();  
 bool isUsernameValid(string Username);
 int a;
 Teacher p;
@@ -64,9 +64,7 @@ bool loginAsTeacher()
 {
 	ifstream read;
 
-	char username[51], password[51], un[51], pw[51];
-	vector<string> usernames;
-	vector<string> passwords;
+	
 	int menu_option;
 	bool invalidUsername = false;
 
@@ -86,109 +84,13 @@ bool loginAsTeacher()
 		switch (menu_option)
 		{
 		case 1:
-			std::cout << "LOGIN AS STUDENT";
-			std::cout << "****************";
-			std::cout << "Enter UserName :   ";
-			std::cin >> username;
-			usernameExists = false;
-			for (string x : usernames)
-			{
-				if (x == username) {
-					usernameExists = true;
-				}
-			}
-
-			std::cout << "Enter PassWord :   ";
-			std::cin >> password;
-			passwordExists = false;
-			for (string x : passwords)
-			{
-				if (x == password) {
-					passwordExists = true;
-				}
-			}
-
-			if (un == username && pw == password)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-
+			loginS();
 			break;
 		case 2:
-			std::cout << " LOGIN AS PARENT";
-			std::cout << "****************";
-			std::cout << "Enter UserName :   ";
-			std::cin >> username;
-			usernameExists = false;
-			for (string x : usernames)
-			{
-				if (x == username) {
-					usernameExists = true;
-				}
-			}
-			std::cout << "Enter PassWord :   ";
-			std::cin >> password;
-			passwordExists = false;
-			for (string x : passwords)
-			{
-				if (x == password) {
-					passwordExists = true;
-				}
-			}
-
-
-			
-
-			if (un == username && pw == password)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-
+			loginP();
 			break;
 		case 3:
-			std::cout << " LOGIN AS TEACHER";
-			std::cout << "****************";
-			std::cout << "Enter UserName :   ";
-			std::cin >> username;
-			usernameExists = false;
-			for (string x : usernames)
-			{
-				if (x == username) {
-					usernameExists = true;
-				}
-			}
-			std::cout << "Enter PassWord :   ";
-			std::cin >> password;
-			std::cin >> password;
-			passwordExists = false;
-			for (string x : passwords)
-			{
-				if (x == password) {
-					passwordExists = true;
-				}
-			}
-
-
-			
-
-			if (un == username && pw == password)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-
-
+			loginT();
 			break;
 		case 4:
 			exit(0);
@@ -203,6 +105,124 @@ bool loginAsTeacher()
 		}
 	} while (true);
 	std::system("CLS");
+
+
+}
+
+char username[51], password[51], un[51], pw[51];
+vector<string> usernames;
+vector<string> passwords;
+
+
+bool loginS()
+{
+	char username[51], password[51], un[51], pw[51];
+	vector<string> usernames;
+	vector<string> passwords;
+
+	cout << "LOGIN AS STUDENT";
+	cout << "****************";
+	cout << "Enter UserName :   ";
+	cin >> username;
+	bool usernameExists = false;
+	for (string x : usernames)
+	{
+		if (x == username) {
+			usernameExists = true;
+		}
+	}
+
+	cout << "Enter PassWord :   ";
+	cin >> password;
+	bool passwordExists = false;
+	for (string x : passwords)
+	{
+		if (x == password) {
+			passwordExists = true;
+		}
+	}
+
+	if (un == username && pw == password)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}
+bool loginP()
+{
+	cout << " LOGIN AS PARENT";
+	cout << "****************";
+	cout << "Enter UserName :   ";
+	cin >> username;
+	bool usernameExists = false;
+	for (string x : usernames)
+	{
+		if (x == username) {
+			usernameExists = true;
+		}
+	}
+	cout << "Enter PassWord :   ";
+	cin >> password;
+	bool passwordExists = false;
+	for (string x : passwords)
+	{
+		if (x == password) {
+			passwordExists = true;
+		}
+	}
+
+
+
+
+	if (un == username && pw == password)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool loginT()
+{
+	cout << " LOGIN AS TEACHER";
+	cout << "****************";
+	cout << "Enter UserName :   ";
+	cin >> username;
+	bool usernameExists = false;
+	for (string x : usernames)
+	{
+		if (x == username) {
+			usernameExists = true;
+		}
+	}
+	cout << "Enter PassWord :   ";
+	cin >> password;
+	cin >> password;
+	bool passwordExists = false;
+	for (string x : passwords)
+	{
+		if (x == password) {
+			passwordExists = true;
+		}
+	}
+
+
+
+
+	if (un == username && pw == password)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 
 
 }
