@@ -60,7 +60,7 @@ void exampleForMohamed() {
 
 bool saveStudentToFile();
 bool saveParentToFile();
-bool loginAsTeacher()
+bool login()
 {
 	ifstream read;
 

@@ -63,7 +63,7 @@ void menu()
 		iInput = cInput - '0'; // Converts the input of type char to int.
 		
 		if (iInput == LOGIN)
-			loginAsTeacher();
+			login();
 			//chosenType = loginAsType();
 
 		else if (iInput == REGISTER)
@@ -97,41 +97,41 @@ void menu()
 	} while (menuLoop);
 }
 
-int loginAsType() {
-
-	system("CLS");
-	cout << "Choose what you want to log in as: " << endl;
-	int chosenType = chooseType();
-	bool invalidInput = false; 
-
-	do
-	{
-		if (chosenType == STUDENT) {
-			//login(student);
-
-		}
-		else if (chosenType == PARENT) {
-			//login(parent);
-		}
-		else if (chosenType == TEACHER) {
-			//login(teacher);
-		}
-		else if (chosenType == ADMIN) {
-			//login(admin);
-		}
-		
-		if (chosenType >= STUDENT && chosenType <= ADMIN)
-			invalidInput = false;
-		else
-		{
-			cout << "Invalid input";
-			printDots();
-			system("CLS");
-			invalidInput = true;
-		}
-	} while (invalidInput);
-	return chosenType;
-}
+//int loginAsType() {
+//
+//	system("CLS");
+//	cout << "Choose what you want to log in as: " << endl;
+//	int chosenType = chooseType();
+//	bool invalidInput = false; 
+//
+//	do
+//	{
+//		if (chosenType == STUDENT) {
+//			//login(student);
+//
+//		}
+//		else if (chosenType == PARENT) {
+//			//login(parent);
+//		}
+//		else if (chosenType == TEACHER) {
+//			//login(teacher);
+//		}
+//		else if (chosenType == ADMIN) {
+//			//login(admin);
+//		}
+//		
+//		if (chosenType >= STUDENT && chosenType <= ADMIN)
+//			invalidInput = false;
+//		else
+//		{
+//			cout << "Invalid input";
+//			printDots();
+//			system("CLS");
+//			invalidInput = true;
+//		}
+//	} while (invalidInput);
+//	return chosenType;
+//}
 int registerAsType() {
 	system("CLS");
 	cout << "Choose what you want to register as:" << endl;

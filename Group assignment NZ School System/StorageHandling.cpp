@@ -37,7 +37,7 @@ void saveToFile(Admin& admin) {
 void saveToFile(Lecture& lecture) {
 	saveToBinaryFile(lecture, LECTURE_FILEPATH);
 }
-void updateSavedLecture(vector<Lecture>& lectures) {
+void updateSavedLectures(vector<Lecture>& lectures) {
 	clearFile(LECTURE_FILEPATH);
 	for (Lecture& x : lectures) {
 		saveToFile(x);
@@ -66,6 +66,7 @@ template<class T>
 void extractPasswords(const vector<T>& user, vector<string>& passwords);
 
 // These are here because you cannot call generic functions from another file, so an intermediary function is required.
+
 void getStudents(vector<Student>& students) {
 	loadFromFilepath<Student>(students, STUD_FILEPATH);
 }

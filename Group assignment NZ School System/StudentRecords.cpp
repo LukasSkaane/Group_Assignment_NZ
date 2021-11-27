@@ -12,7 +12,7 @@ enum Permissions { NONE, TEACHER_PERMS, ADMIN_PERMS };
 enum MainMenuOptions { ADD = 1, EDIT, DELETE, UPDATE, SELECT_LECTURE, ALL_RECORDS, BACK };
 
 template <class T>
-void studentRecordsMenu(T&, int);
+void studentRecordsMenu(T&);
 void displayMainMenu(const string, const int);
 void displaySecondaryMenu();
 int menuSelection(int min, int max);
@@ -34,16 +34,16 @@ int selectLecture(vector<Lecture>&);
 void displayAllRecords(Lecture&);
 
 void studentRecords(Teacher& teacher) {
-	studentRecordsMenu<Teacher>(teacher, TEACHER_PERMS);
+	studentRecordsMenu<Teacher>(teacher);
 }
 void studentRecords(Admin& admin) {
-	studentRecordsMenu<Admin>(admin, ADMIN_PERMS);
+	studentRecordsMenu<Admin>(admin);
 }
 
 void createTestLecture();
 
 template <class T>
-void studentRecordsMenu(T& user, int perms) {
+void studentRecordsMenu(T& user) {
 	int selectionMenu;
 	bool loopFlag = true;
 	Student student;
@@ -57,7 +57,7 @@ void studentRecordsMenu(T& user, int perms) {
 		char name[51] = "CS101";
 		strcpy_s(testLecture.lectureName, name);
 		lectures.push_back(testLecture);
-		updateSavedLecture(lectures);
+		updateSavedLectures(lectures);
 	}
 
 	do
@@ -92,7 +92,7 @@ void studentRecordsMenu(T& user, int perms) {
 			else if (selectionMenu == UPDATE)
 				updateRecord(student, lectures[selectedLecture]);
 
-			updateSavedLecture(lectures);
+			updateSavedLectures(lectures);
 		}
 		else
 		{
@@ -259,8 +259,18 @@ int selectLecture(vector<Lecture>& lectures) {
 		return 0;
 	}
 }
-void displayAllRecords(Lecture& lecture){
-	
+void displayAllRecords(Lecture& lecture) {
+	int arrSize = sizeof(lecture.studentUsernames) / sizeof(lecture.studentUsernames[0]);
+	int count = 1;
+
+	for (int i = 0; i < arrSize; i++) {
+		if (lecture.studentUsernames[i] != NULL) {
+			cout << count << ". " << lecture.studentUsernames[i] << endl;
+			count++;
+		}
+	}
+
+	system("pause");
 }
 
 int countStudents(vector<Student>& students) {
