@@ -57,7 +57,7 @@ void studentRecordsMenu(T& user) {
 		char name[51] = "CS101";
 		strcpy_s(testLecture.lectureName, name);
 		lectures.push_back(testLecture);
-		updateSavedLectures(lectures);
+		saveToFile(testLecture);
 	}
 
 	do
@@ -260,15 +260,39 @@ int selectLecture(vector<Lecture>& lectures) {
 	}
 }
 void displayAllRecords(Lecture& lecture) {
+	auto isUsernameEmpty = [](char* username) {
+		int arrSize = sizeof(username);
+
+		for (int i = 0; i < arrSize; i++) {
+			if (username[i] != '\0')
+				return false;
+		}
+
+		return true;
+	};
+
 	int arrSize = sizeof(lecture.studentUsernames) / sizeof(lecture.studentUsernames[0]);
 	int count = 1;
 
+	vector<string> usernames;
 	for (int i = 0; i < arrSize; i++) {
-		if (lecture.studentUsernames[i] != NULL) {
-			cout << count << ". " << lecture.studentUsernames[i] << endl;
+		if (!isUsernameEmpty(lecture.studentUsernames[i])) {
+			usernames.push_back(lecture.studentUsernames[i]);
 			count++;
 		}
 	}
+
+	count = 1;
+	if (!usernames.empty()) {
+		cout << "All Students in the lecture " << lecture.lectureName << "." << endl;
+		for (string x : usernames) {
+			cout << count << ". " << x << endl;
+			count++;
+		}
+	}
+	else
+		cout << "No students saved in lecture " << lecture.lectureName << endl;
+
 
 	system("pause");
 }
