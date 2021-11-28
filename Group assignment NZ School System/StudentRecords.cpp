@@ -236,6 +236,10 @@ void removeStudent(Student& student, Lecture& lecture) {
 void updateRecord(Student& student, Lecture& lecture) {
 
 }
+void displayAllRecords(Lecture& lecture){
+	
+}
+
 int selectLecture(vector<Lecture>& lectures) {
 	lectures.clear();
 	getLectures(lectures);
@@ -259,9 +263,7 @@ int selectLecture(vector<Lecture>& lectures) {
 		return 0;
 	}
 }
-void displayAllRecords(Lecture& lecture){
-	
-}
+
 
 int countStudents(vector<Student>& students) {
 	int count = 0;
