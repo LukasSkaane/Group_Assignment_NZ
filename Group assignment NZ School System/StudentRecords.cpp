@@ -18,6 +18,7 @@ void displaySecondaryMenu();
 int menuSelection(int min, int max);
 int countStudentsInLecture(Lecture&);
 int getIndexForStudentInLecture(Lecture&, char[]);
+bool isCharEmpty(char*);
 
 bool getStudentByFirstName(Student&);
 bool getStudentByUsername(Student&);
@@ -28,7 +29,7 @@ void selectStudent(Student&);
 
 void addStudent(Student&, Lecture&);
 void editStudent(Student&, Lecture&);
-void removeStudent(Student&, Lecture&);
+void deleteStudent(Student&, Lecture&);
 void updateRecord(Student&, Lecture&);
 int selectLecture(vector<Lecture>&);
 void displayAllRecords(Lecture&);
@@ -87,7 +88,7 @@ void studentRecordsMenu(T& user) {
 				editStudent(student, lectures[selectedLecture]);
 
 			else if (selectionMenu == DELETE)
-				removeStudent(student, lectures[selectedLecture]);
+				deleteStudent(student, lectures[selectedLecture]);
 
 			else if (selectionMenu == UPDATE)
 				updateRecord(student, lectures[selectedLecture]);
@@ -230,11 +231,30 @@ void editStudent(Student& student, Lecture& lecture) {
 
 	system("pause");
 }
-void removeStudent(Student& student, Lecture& lecture) {
+void deleteStudent(Student& student, Lecture& lecture) {
+	int arrSize = sizeof(lecture.studentUsernames) / sizeof(lecture.studentUsernames[0]);
 
+	for (int i = 0; i < arrSize; i++) {
+		if (strcmp(student.personalDetails.username, lecture.studentUsernames[i]) == 0) {
+			for (int k = i; k < arrSize - 1; k++) {
+				if (!isCharEmpty(lecture.studentUsernames[k + 1])) {
+					strcpy_s(lecture.studentUsernames[k], lecture.studentUsernames[k + 1]);
+					lecture.grades[k] = lecture.grades[k + 1];
+					strcpy_s(lecture.progression[k], lecture.progression[k + 1]);
+				}
+				if (isCharEmpty(lecture.studentUsernames[k + 1])) {
+					strcpy_s(lecture.studentUsernames[k], "");
+					lecture.grades[k] = '\0';
+					strcpy_s(lecture.progression[k], "");
+					break;
+				}
+			}
+		}
+	}
 }
 void updateRecord(Student& student, Lecture& lecture) {
-
+	cout << "Record updated." << endl;
+	system("pause");
 }
 int selectLecture(vector<Lecture>& lectures) {
 	lectures.clear();
@@ -260,24 +280,18 @@ int selectLecture(vector<Lecture>& lectures) {
 	}
 }
 void displayAllRecords(Lecture& lecture) {
-	auto isUsernameEmpty = [](char* username) {
-		int arrSize = sizeof(username);
-
-		for (int i = 0; i < arrSize; i++) {
-			if (username[i] != '\0')
-				return false;
-		}
-
-		return true;
-	};
-
 	int arrSize = sizeof(lecture.studentUsernames) / sizeof(lecture.studentUsernames[0]);
 	int count = 1;
 
-	vector<string> usernames;
+	vector<string> usernames, progression;
+	vector<char> grades;
+
 	for (int i = 0; i < arrSize; i++) {
-		if (!isUsernameEmpty(lecture.studentUsernames[i])) {
+		if (!isCharEmpty(lecture.studentUsernames[i])) {
 			usernames.push_back(lecture.studentUsernames[i]);
+			grades.push_back(lecture.grades[i]);
+			progression.push_back(lecture.progression[i]);
+
 			count++;
 		}
 	}
@@ -286,7 +300,7 @@ void displayAllRecords(Lecture& lecture) {
 	if (!usernames.empty()) {
 		cout << "All Students in the lecture " << lecture.lectureName << "." << endl;
 		for (string x : usernames) {
-			cout << count << ". " << x << endl;
+			cout << count << ". " << x << "\t" << grades[count - 1] << "\t" << progression[count - 1] << endl;
 			count++;
 		}
 	}
@@ -326,13 +340,13 @@ int countStudentsInLecture(Lecture& lecture) {
 	int count = 0;
 	bool empty = true;
 
-	for (int i = 0; i < arrayRowSize; i++) {
-		for (char x : lecture.studentUsernames[i]) {
-			if (x != '0')
-				empty = false;
-		}
-		if (empty)
+	for (auto x : lecture.studentUsernames) {
+		if (!isCharEmpty(x))
 			count++;
+	}
+
+	for (int i = 0; i < arrayRowSize; i++) {
+		
 	}
 	return count;
 }
@@ -340,7 +354,7 @@ int getIndexForStudentInLecture(Lecture& lecture, char username[]) {
 	int arrayRowSize = sizeof lecture.studentUsernames / sizeof lecture.studentUsernames[0];
 
 	for (int i = 0; i < arrayRowSize; i++) {
-		if (strcmp(lecture.studentUsernames[i], username))
+		if (strcmp(lecture.studentUsernames[i], username) == 0)
 			return i;
 	}
 	return -1;
@@ -451,4 +465,9 @@ void createTestLecture() {
 	saveToFile(lecture);
 	cout << "Lecture saved to file. " << endl;
 	system("pause");
+}
+bool isCharEmpty(char* c) {
+	if (c != NULL && c[0] == '\0')
+		return true;
+	return false;
 }
