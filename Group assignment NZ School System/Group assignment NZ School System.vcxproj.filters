@@ -8,6 +8,7 @@
     <ClCompile Include="Introduction.cpp" />
     <ClCompile Include="StorageHandling.cpp" />
     <ClCompile Include="StudentRecords.cpp" />
+    <ClCompile Include="Admin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h" />
