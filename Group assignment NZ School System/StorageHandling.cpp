@@ -131,7 +131,7 @@ void extractPasswords(const vector<T>& user, vector<string>& passwords) {
 }
 
 template<class T>
-void loadFromFilepath(vector<T>& users, const string FILEPATH) {
+void loadFromFilepath(vector<T>& data, const string FILEPATH) {
 	ifstream inHandle;
 
 	T buffer;
@@ -139,7 +139,7 @@ void loadFromFilepath(vector<T>& users, const string FILEPATH) {
 	if (inHandle) {
 		inHandle.read(reinterpret_cast<char*>(&buffer), sizeof(buffer));
 		while (!inHandle.eof()) {
-			users.push_back(buffer);
+			data.push_back(buffer);
 			inHandle.read(reinterpret_cast<char*>(&buffer), sizeof(buffer));
 		}
 	}

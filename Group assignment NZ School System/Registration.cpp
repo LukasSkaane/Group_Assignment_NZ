@@ -13,16 +13,12 @@ using namespace std;
 const array<char, 3> invalidPasswordChars = { '\\', '\'', '\"'}; 
 // Disallowing back-slash (\), single-quote ('), double-quote (") because I believe incorrect handling would result in an untraceable exception. (I'd rather not try to debug that)
 
-
 void createPersonalDetails(Person&);
 void registerUser(Student&);
 void registerUser(Parent&);
 void registerUser(Teacher&);
-void registerUser(Admin&); // Incomplete
+void registerUser(Admin&);
 
-vector<char[]> addLessons(); 
-// ^As of now does not work, I am unsure how to save a 
-// list of student classes so will wait before adding this functionality.
 int setStudentId();
 bool isPasswordValid(string);
 bool isUsernameValid(string);
@@ -33,32 +29,7 @@ void registerUser(Student& student)
 	cout << "Set personal details for student." << endl;
 	createPersonalDetails(student.personalDetails);
 	student.studentId = setStudentId();
-	//student.classesList = addLessons();
-	// setCaregiver(student.caregiverPrimary);
-	// Ask to set secondary caregiver setCaregiver(student.caregiverSecondary);
 }
-//vector<char[]> addLessons() 
-//{
-//	vector<char[]> lessonList;
-//	auto createLesson = []() {
-//		char lesson[20];
-//		cout << "Please input the classes name, max lenght 20 characters and cannot have spaces. \n";
-//		cin >> lesson;
-//		return lesson;
-//	};
-//
-//	cout << "Add classes to students curriculum." << endl;
-//	char input;
-//	do
-//	{
-//		lessonList.push_back(createLesson());
-//		cout << "Do you want to add another lesson? y/n" << endl;
-//		cin >> input;
-//		cin.ignore();
-//	} while (input == 'y' || input == 'Y');
-//
-//	return lessonList;
-//}
 
 void registerUser(Parent& parent)
 {
