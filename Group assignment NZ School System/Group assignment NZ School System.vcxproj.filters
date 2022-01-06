@@ -3,12 +3,13 @@
   <ItemGroup>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Login.cpp" />
+    <ClCompile Include="LoginOld.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="Introduction.cpp" />
     <ClCompile Include="StorageHandling.cpp" />
     <ClCompile Include="StudentRecords.cpp" />
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="Login.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h" />

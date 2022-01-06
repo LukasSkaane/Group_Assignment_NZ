@@ -4,6 +4,9 @@
 #include "Structures.h"
 #include "Login.h"
 
-bool login();
+bool login(Student&);
+bool login(Parent&);
+bool login(Teacher&);
+bool login(Admin&);
 
 #endif // !LOGIN_H

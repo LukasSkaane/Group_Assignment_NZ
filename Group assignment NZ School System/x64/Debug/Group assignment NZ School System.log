@@ -1,14 +1,2 @@
-﻿  Admin.cpp
-  Menu.cpp
-  Source.cpp
-  Login.cpp
-C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Login.cpp(71,7): warning C4101: 'usernameExists': unreferenced local variable
-C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\Login.cpp(72,7): warning C4101: 'passwordExists': unreferenced local variable
-  Registration.cpp
-  Introduction.cpp
-  StorageHandling.cpp
-  StudentRecords.cpp
-C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\StudentRecords.cpp(177,38): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\Users\Mohamed Sanahui\Group_Assignment_NZ\Group assignment NZ School System\StudentRecords.cpp(336,28): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-  Generating Code...
-  Group assignment NZ School System.vcxproj -> C:\Users\Mohamed Sanahui\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
+﻿  Menu.cpp
+  Group assignment NZ School System.vcxproj -> C:\Users\lukas\Source\Repos\LukasSkaane\Group_Assignment_NZ\x64\Debug\Group assignment NZ School System.exe
