@@ -34,6 +34,7 @@ bool logUserIn(T& user, vector<T>& storedUsers) {
 	system("cls");
 	char username[51], password[51];
 	int index = -1; // If a matching username is found, its index will get stored within this variable.
+	bool successfulLogIn = false;
 
 	cout << "Username?" << endl;
 	cin >> username;
@@ -47,7 +48,7 @@ bool logUserIn(T& user, vector<T>& storedUsers) {
 		count++;
 	}
 
-	if (index != -1)
+	if (index != -1) {
 		for (int i = 3; i > 0; i--) {
 			cout << "Password? You have " << i << " tries left." << endl;
 			cin >> password;
@@ -55,12 +56,17 @@ bool logUserIn(T& user, vector<T>& storedUsers) {
 			if (strcmp(storedUsers[index].personalDetails.password, password) == 0) {
 				cout << "Successfully logged in." << endl;
 				user = storedUsers[index];
-				return true;
+				successfulLogIn = true;
+				break;
 			}
+			else if (i == 1)
+				cout << "Failed log in, going back to main menu." << endl;
 		}
+		system("pause");
+	}
 	else {
 		cout << "No user with that username found." << endl;
 		system("pause");
 	}
-	return false;
+	return successfulLogIn;
 }

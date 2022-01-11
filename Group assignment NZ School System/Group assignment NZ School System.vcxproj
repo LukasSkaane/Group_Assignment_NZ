@@ -150,6 +150,7 @@
     <ClCompile Include="StudentRecords.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Admin.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="StorageHandling.h" />
     <ClInclude Include="Introduction.h" />

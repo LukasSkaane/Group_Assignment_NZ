@@ -32,7 +32,7 @@ void saveToFile(Teacher& teacher) {
 	saveToBinaryFile(teacher, TEACHER_FILEPATH);
 }
 void saveToFile(Admin& admin) {
-	saveToBinaryFile(admin, TEACHER_FILEPATH);
+	saveToBinaryFile(admin, ADMIN_FILEPATH);
 }
 void saveToFile(Lecture& lecture) {
 	saveToBinaryFile(lecture, LECTURE_FILEPATH);

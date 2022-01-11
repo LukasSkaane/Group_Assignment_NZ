@@ -5,6 +5,6 @@
 void registerUser(Student&);
 void registerUser(Parent&);
 void registerUser(Teacher&);
-void registerUser(Admin&); // Incomplete
+void registerUser(Admin&);
 
 #endif // !REGISTER_H

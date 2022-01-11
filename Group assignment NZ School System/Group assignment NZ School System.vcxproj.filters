@@ -19,5 +19,6 @@
     <ClInclude Include="Registration.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="StudentRecords.h" />
+    <ClInclude Include="Admin.h" />
   </ItemGroup>
 </Project>
